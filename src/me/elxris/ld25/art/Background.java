@@ -1,6 +1,6 @@
-package me.elxris.art;
+package me.elxris.ld25.art;
 
-import me.elxris.ld25.Screen;
+import me.elxris.ld25.motor.Screen;
 
 public class Background extends Sprite {
     private int ancho;
@@ -16,7 +16,6 @@ public class Background extends Sprite {
         x = 0;
         this.v = v;
         vC = 0;
-        
     }
     
     public Background(String src, boolean... bool) {

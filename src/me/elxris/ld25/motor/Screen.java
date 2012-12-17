@@ -1,9 +1,9 @@
-package me.elxris.ld25;
+package me.elxris.ld25.motor;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
-import me.elxris.art.Pix;
+import me.elxris.ld25.art.Pix;
 
 public class Screen {
     private Pix[][] pixels;
@@ -46,7 +46,7 @@ public class Screen {
         for(int x = 0; x < getAncho(); x++){
             for(int y = 0; y < getAlto(); y++){
                 g.setColor(getPixColor(x, y));
-                g.fillRect(X(x*getSize()), Y(y*getSize()), X(x*getSize()+getSizeX()), Y(y*getSize()+getSizeY()));
+                g.fillRect(X(x*getSize()), Y(y*getSize()), getSizeX(), getSizeY());
             }
         }
     }

@@ -1,11 +1,13 @@
-package me.elxris.art;
+package me.elxris.ld25.art;
 
-import me.elxris.ld25.Screen;
+import java.awt.Color;
+
+import me.elxris.ld25.motor.Screen;
 
 public class Alfabet extends Sprite{
 
     public Alfabet() {
-        super("res/alfabet");
+        super("/res/alfabet");
     }
     
     public void draw(String str, int x, int y, Screen scrn){
@@ -92,6 +94,42 @@ public class Alfabet extends Sprite{
             letter++;
             if(str.charAt(i)=='Z')
                 drawLetter(letter, pos, scrn);
+            letter++;
+            if(str.charAt(i)=='0')
+                drawLetter(letter, pos, scrn);
+            letter++;
+            if(str.charAt(i)=='1')
+                drawLetter(letter, pos, scrn);
+            letter++;
+            if(str.charAt(i)=='2')
+                drawLetter(letter, pos, scrn);
+            letter++;
+            if(str.charAt(i)=='3')
+                drawLetter(letter, pos, scrn);
+            letter++;
+            if(str.charAt(i)=='4')
+                drawLetter(letter, pos, scrn);
+            letter++;
+            if(str.charAt(i)=='5')
+                drawLetter(letter, pos, scrn);
+            letter++;
+            if(str.charAt(i)=='6')
+                drawLetter(letter, pos, scrn);
+            letter++;
+            if(str.charAt(i)=='7')
+                drawLetter(letter, pos, scrn);
+            letter++;
+            if(str.charAt(i)=='8')
+                drawLetter(letter, pos, scrn);
+            letter++;
+            if(str.charAt(i)=='9')
+                drawLetter(letter, pos, scrn);
+            letter++;
+            if(str.charAt(i)==' ')
+                drawLetter(letter, pos, scrn);
+            letter++;
+            if(str.charAt(i)==':')
+                drawLetter(letter, pos, scrn);
         }
         //System.out.println();
     }
@@ -100,6 +138,7 @@ public class Alfabet extends Sprite{
         //System.out.println(lett);
         setX(pos[0]);
         setY(pos[1]);
+        setColor(0, new Color(251, 184, 41));
         draw(scrn);
         pos[0] += getAncho()+1;
     }

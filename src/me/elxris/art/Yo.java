@@ -1,19 +1,19 @@
 package me.elxris.art;
 
-import me.elxris.ld25.Game;
+import me.elxris.ld25.Screen;
 
 public class Yo extends Sprite{
     private int v, vC;
     
-    public Yo(Game g) {
-        super(g, "res/sprite");
+    public Yo() {
+        super("res/sprite");
         v = 4;
     }
     
-    public void draw(){
+    public void draw(Screen scrn){
         if((vC++)%v == 0)
             addEstado(1);
-        super.draw();
+        super.draw(scrn);
     }
     @Override
     public void moveX(int x) {

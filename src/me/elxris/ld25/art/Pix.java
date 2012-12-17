@@ -1,4 +1,4 @@
-package me.elxris.art;
+package me.elxris.ld25.art;
 
 import java.awt.Color;
 import java.awt.Graphics;

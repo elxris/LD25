@@ -1,11 +1,10 @@
-package me.elxris.art;
+package me.elxris.ld25.art;
 
 import java.awt.Color;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Scanner;
 
-import me.elxris.ld25.Screen;
+import me.elxris.ld25.motor.Screen;
 
 public abstract class Sprite {
     private Image[] imgs;
@@ -19,33 +18,29 @@ public abstract class Sprite {
     public Sprite(String src){
         ticks = 0;
         v = 2;
-        try {
-            
-            Scanner entrada = new Scanner(new File(src));
-            entrada.next();
-            imgs = new Image[entrada.nextInt()];
-            for(int i = 0; i < imgs.length; i++){
-                int alto, ancho;
-                alto = entrada.nextInt();
-                ancho = entrada.nextInt();
-                int x, y;
-                x = entrada.nextInt();
-                y = entrada.nextInt();
-                int[][] imagen = new int[alto][ancho];
-                for(int al = alto-1; al >= 0; al--){
-                    for(int an = 0; an < ancho; an++){
-                        imagen[al][an] = entrada.nextInt();
-                    }
+        InputStream in = getClass().getResourceAsStream(src);
+        System.out.println(src);
+        Scanner entrada = new Scanner(in);
+        entrada.next();
+        imgs = new Image[entrada.nextInt()];
+        for(int i = 0; i < imgs.length; i++){
+            int alto, ancho;
+            alto = entrada.nextInt();
+            ancho = entrada.nextInt();
+            int x, y;
+            x = entrada.nextInt();
+            y = entrada.nextInt();
+            int[][] imagen = new int[alto][ancho];
+            for(int al = alto-1; al >= 0; al--){
+                for(int an = 0; an < ancho; an++){
+                    imagen[al][an] = entrada.nextInt();
                 }
-                imgs[i] = new Image(alto, ancho, x, y, imagen);
-                
             }
-            paleta = new Paleta(entrada.next());
-            entrada.close();
+            imgs[i] = new Image(alto, ancho, x, y, imagen);
             
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
+        paleta = new Paleta(entrada.next());
+        entrada.close();
     }
     private Image get(){
         return imgs[estado];
@@ -59,6 +54,7 @@ public abstract class Sprite {
     public void draw(Screen scrn){
         addX(mx);
         addY(my);
+        stopMove();
         for(int x = 0; x < get().getAncho(); x++){
             for(int y = 0; y < get().getAlto(); y++){
                 scrn.setPixColor(get().getX()+getX()+x, get().getY()+getY()+y, getPixelColor(x, y));
@@ -95,6 +91,10 @@ public abstract class Sprite {
     public void moveY(int y){
         my=y;
     }
+    public void stopMove(){
+        mx = 0;
+        my = 0;
+    }
     public int getEstadoLength(){
         return imgs.length;
     }
@@ -115,5 +115,8 @@ public abstract class Sprite {
     }
     public void addTicks(int n){
         setTicks(getTicks()+n);
+    }
+    public void setColor(int e, Color c){
+        paleta.setColor(e, c);
     }
 }

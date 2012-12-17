@@ -1,28 +1,32 @@
-package me.elxris.ld25;
+package me.elxris.ld25.motor;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-
 import javax.swing.JApplet;
 
-public class Main extends JApplet implements Runnable, KeyListener, MouseMotionListener, MouseListener{
+public class Principal extends JApplet implements Runnable, KeyListener, MouseMotionListener, MouseListener{
     public final static int TIME = 1000/30;
     private Thread tick = new Thread(this);
     private Boolean playing = false;
     public static final int ANCHO = 400;
     public static final int ALTO = 120;
-    private static Panel panel = new Panel(ANCHO, ALTO);
+    private static Panel panel = new Panel();
     private Game game;
     
-    public Main(){
+    @Override
+    public void init() {
+        super.init();
         this.addKeyListener(this);
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+        this.setFocusable(true);
         add(panel);
         game = new Game(panel);
+        play();
+        tick.start();
     }
     
     public void pintar(){
@@ -32,8 +36,6 @@ public class Main extends JApplet implements Runnable, KeyListener, MouseMotionL
     @Override
     public void start() {
         this.resize(ANCHO, ALTO);
-        play();
-        tick.start();
     }
     
     @Override
