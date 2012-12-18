@@ -56,11 +56,20 @@ public class Paleta {
     
     public void setColor(int e, Color c){
         if(e < colores.length){
-            colores[e] = c;
+            colores[e-1] = c;
         }
     }
     
-    public Color color(Color c, int e){
+    public void setColor(int e, int i){
+        if(e < colores.length && i < colores.length){
+            Color eC = color(e);
+            Color iC = color(i);
+            setColor(i, eC);
+            setColor(e, iC);
+        }
+    }
+    
+    public Color mixColor(Color c, int e){
         Color base = color(e);
         int red = colorSum(base.getRed(), c.getRed(), c.getAlpha());
         int green = colorSum(base.getGreen(), c.getGreen(), c.getAlpha());

@@ -7,21 +7,23 @@ public class Background extends Sprite {
     private int x, v, vC;
     private boolean overlap;
     
-    public Background(String src, int v, boolean... bool){
+    public Background(String src, int v, boolean overlap){
         super(src);
-        if(bool.length > 0){
-            overlap = bool[0];
-        }
+        this.overlap = overlap;
         ancho = anchoBackground();
         x = 0;
         this.v = v;
         vC = 0;
     }
-    
-    public Background(String src, boolean... bool) {
-        this(src, 1, bool);
+    public Background(String src, boolean overlap){
+        this(src, 1, overlap);
     }
-    
+    public Background(String src, int v) {
+        this(src, v, false);
+    }
+    public Background(String src){
+        this(src, 1);
+    }
     public void draw(Screen scrn){
         if((vC++)%v == 0)
             x++;

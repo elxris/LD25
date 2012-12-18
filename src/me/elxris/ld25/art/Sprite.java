@@ -19,7 +19,6 @@ public abstract class Sprite {
         ticks = 0;
         v = 2;
         InputStream in = getClass().getResourceAsStream(src);
-        System.out.println(src);
         Scanner entrada = new Scanner(in);
         entrada.next();
         imgs = new Image[entrada.nextInt()];
@@ -39,25 +38,42 @@ public abstract class Sprite {
             imgs[i] = new Image(alto, ancho, x, y, imagen);
             
         }
-        paleta = new Paleta(entrada.next());
+        setPaleta(new Paleta(entrada.next()));
         entrada.close();
     }
     private Image get(){
         return imgs[estado];
     }
     public Color getPixelColor(int x, int y){
-        return paleta.color(get().getPixel(x, y));
+        return getPaleta().color(get().getPixel(x, y));
+    }
+    public boolean isPixelColor(int x, int y){
+        if(get().getPixel(x, y) == 0){
+            return false;
+        }
+        return true;
     }
     public int getIntColor(int x, int y){
         return get().getPixel(x, y);
     }
     public void draw(Screen scrn){
+        draw(scrn, null);
+    }
+    public void draw(Screen scrn, Color color){
         addX(mx);
         addY(my);
         stopMove();
+        Color c;
         for(int x = 0; x < get().getAncho(); x++){
             for(int y = 0; y < get().getAlto(); y++){
-                scrn.setPixColor(get().getX()+getX()+x, get().getY()+getY()+y, getPixelColor(x, y));
+                if(color == null){
+                    c = getPixelColor(x, y);
+                }else if(isPixelColor(x, y)){
+                    c = color;
+                }else{
+                    c = null;
+                }
+                scrn.setPixColor(get().getX()+getX()+x, get().getY()+getY()+y, c);
             }
         }
     }
@@ -117,6 +133,18 @@ public abstract class Sprite {
         setTicks(getTicks()+n);
     }
     public void setColor(int e, Color c){
-        paleta.setColor(e, c);
+        getPaleta().setColor(e, c);
+    }
+    public void setColor(int e, int i){
+        getPaleta().setColor(e, i);
+    }
+    public void setPaleta(Paleta paleta) {
+        this.paleta = paleta;
+    }
+    public Paleta getPaleta() {
+        return paleta;
+    }
+    public Color getColor(int c){
+        return getPaleta().color(c);
     }
 }

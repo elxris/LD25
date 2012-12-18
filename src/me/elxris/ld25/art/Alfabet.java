@@ -10,137 +10,33 @@ public class Alfabet extends Sprite{
         super("/res/alfabet");
     }
     
-    public void draw(String str, int x, int y, Screen scrn){
+    public void draw(String str, int x, int y, Screen scrn, Color color){
         str = str.toUpperCase();
-        int letter;
         int pos[] = {x, y};
+        char letters[] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N'
+                ,'O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1','2','3','4','5','6','7','8','9',' ',':','_'};
         for(int i = 0; i < str.length(); i++){
-            //System.out.print(str.charAt(i));
-            letter = 0;
-            if(str.charAt(i)=='A')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='B')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='C')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='D')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='E')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='F')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='G')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='H')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='I')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='J')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='K')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='L')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='M')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='N')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='O')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='P')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='Q')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='R')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='S')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='T')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='U')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='V')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='W')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='X')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='Y')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='Z')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='0')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='1')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='2')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='3')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='4')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='5')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='6')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='7')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='8')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)=='9')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)==' ')
-                drawLetter(letter, pos, scrn);
-            letter++;
-            if(str.charAt(i)==':')
-                drawLetter(letter, pos, scrn);
+            for(int e = 0; e < letters.length; e++){
+                if(str.charAt(i) == letters[e]){
+                    drawLetter(e, pos, scrn, color);
+                    break;
+                }
+            }
         }
-        //System.out.println();
     }
-    public void drawLetter(int lett, int[] pos, Screen scrn){
+    public void draw(String str, int x, int y, Screen scrn){
+        draw(str, x, y, scrn, getColor(1));
+    }
+    public void draw(String str, int x, int y, Screen scrn, int color){
+        draw(str, x, y, scrn, getColor(color));
+    }
+    public void drawLetter(int lett, int[] pos, Screen scrn, Color color){
         setEstado(lett);
         //System.out.println(lett);
         setX(pos[0]);
         setY(pos[1]);
-        setColor(0, new Color(251, 184, 41));
-        draw(scrn);
+        //setColor(1, color);
+        draw(scrn, color);
         pos[0] += getAncho()+1;
     }
-
 }

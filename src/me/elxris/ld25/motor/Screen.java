@@ -11,9 +11,9 @@ public class Screen {
     private int size = 5;
     private int sizeX = 5;
     private int sizeY = 4;
+    private Color cback;
     
     public Screen(int an, int al) {
-        // TODO Auto-generated constructor stub
         ancho = an;
         alto = al;
         pixels = new Pix[getAncho()][getAlto()];
@@ -35,10 +35,10 @@ public class Screen {
             return Color.BLACK;
         }
     }
-    public void prePaint(){
+    public void prePaint(Color c){
         for(int x = 0; x < getAncho(); x++){
             for(int y = 0; y < getAlto(); y++){
-                pixels[x][y].setColor(Color.BLACK);
+                pixels[x][y].setColor(c);
             }
         }
     }
@@ -83,5 +83,11 @@ public class Screen {
     }
     public int getSizeY(){
         return sizeY;
+    }
+    public void setCback(Color cback) {
+        this.cback = cback;
+    }
+    public Color getCback() {
+        return cback;
     }
 }
