@@ -5,11 +5,12 @@ import java.awt.Color;
 import me.elxris.ld25.art.Alfabet;
 import me.elxris.ld25.art.Stage;
 import me.elxris.ld25.art.yo.Dinosaurio;
+import me.elxris.ld25.art.yo.Goat;
 import me.elxris.ld25.art.yo.YoRobot;
 import me.elxris.ld25.art.yo.Yo;
 
 public class Game {
-    private Yo yo[] = new Yo[2];
+    private Yo yo[] = new Yo[3];
     private int yoC = 0;
     private Alfabet alfa;
     private Panel panel;
@@ -17,7 +18,7 @@ public class Game {
     private int score = 0;
     private int estado = 0;
     private int vida = 3;
-    private Stage[] stages = new Stage[2];
+    private Stage[] stages = new Stage[3];
     private Sonido sonido;
     private boolean changed;
        
@@ -25,33 +26,55 @@ public class Game {
         panel = pan;
         setSonido(sonido);
         
-        String s[] = {"/res/background3", "/res/background2", "/res/background", "/res/car"};
+        String s[] = {"/res/art/nuves.s", "/res/art/edificios.s", "/res/art/calle.s", "/res/art/carro.s"};
         stages[0] = new Stage(s);
-        String s2[] = {"/res/dayclouds", "/res/bosque", "/res/grass", "/res/conejo"};
+        int[] coloresRandom = {3, 4, 5, 6, 7};
+        stages[0].setRandom(coloresRandom);
+        String s2[] = {"/res/art/nuves.s", "/res/art/bosque.s", "/res/art/grass.s", "/res/art/conejo.s"};
         stages[1] = new Stage(s2);
-        stages[1].setCback(new Color(206, 236, 239));
+        stages[1].setCback(new Color(206, 236, 239));//Azul
+        int[] coloresRandom2 = {1, 5, 6};
+        stages[1].setRandom(coloresRandom2);
+        String s3[] = {"/res/art/nuves.s", "/res/art/volcano.s", "/res/art/grassgoat.s", "/res/art/smallgoat.s"};
+        stages[2] = new Stage(s3);
+        stages[2].setCback(new Color(206, 236, 239));
+        int[] coloresRandom3 = {2, 6, 7};
+        stages[2].setRandom(coloresRandom3);
         
         scrn = new Screen(getAncho(), getAlto());
         alfa = new Alfabet();
-        
+        // Añade el dinosaurio.
         Dinosaurio dino = new Dinosaurio(getScrn().getAncho(), 2);
         dino.setSonido(getSonido());
-        setYo(dino);
-        addYoC(1);
+        setNewYo(dino);
+        // Añade el robot.
         YoRobot robot = new YoRobot(getScrn().getAncho(), 2);
         robot.setSonido(getSonido());
-        setYo(robot);
-        addYoC(1);
+        setNewYo(robot);
+        // Añade la cabra.
+        Goat goat = new Goat(getScrn().getAncho(), 2);
+        goat.setSonido(getSonido());
+        setNewYo(goat);
     }
     public void paint(){
-        scrn.prePaint(getStage().getCback());
+        scrn.prePaint(getStage().getCback()); //Pinta con el color de fondo del stage.
         getStage().pintar(this);
         getYo().draw(scrn);
         alfa.draw("Score:"+score, 1, scrn.getAlto()-alfa.getAlto(), scrn, 1);
         alfa.draw(getVidaString(), scrn.getAncho()-20, scrn.getAlto()-alfa.getAlto(), scrn, 2);
         scrn.paint(panel.getGraphics());
-        Change();
+        cambioStage();
         return;
+    }
+    public void paintScreen(int n){ //Cuando no está en focus.
+        scrn.prePaint(Color.BLACK); //Pinta con el color de fondo del stage.
+        if(n == 0){
+            int i = 0;
+            alfa.draw("R: reset", 2, 2+6*i++, scrn, 3);
+            alfa.draw("Spacebar: smash", 2, 2+6*i++, scrn, 3);
+            alfa.draw("PAUSED", 2, 2+6*i++, scrn, 3);
+        }
+        scrn.paint(panel.getGraphics());
     }
     public void key(int k){
         if(k == 32){//W
@@ -87,7 +110,6 @@ public class Game {
     public void addVida(int vida){
         setVida(getVida()+vida);
         if(getVida() <= 0){
-            // TODO something
             setChanged(true);
         }
     }
@@ -131,6 +153,10 @@ public class Game {
     public void setYo(Yo yo){
         this.yo[getYoC()] = yo;
     }
+    public void setNewYo(Yo yo){
+        setYo(yo);
+        addYoC(1);
+    }
     public Yo getYo() {
         return yo[getYoC()];
     }
@@ -150,7 +176,7 @@ public class Game {
     public boolean getChanged(){
         return changed;
     }
-    public void Change(){
+    public void cambioStage(){
         if(getChanged()){
             setChanged(false);
             getStage().destroyCars();
@@ -158,5 +184,12 @@ public class Game {
             addEstado(1);
             setVida(3);
         }
+    }
+    public void reset(){
+        getStage().destroyCars();
+        setYoC(0);
+        setEstado(0);
+        setVida(3);
+        setScore(0);
     }
 }

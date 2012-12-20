@@ -21,7 +21,7 @@ public abstract class Yo extends Sprite{
         if(isAtacando()){
             atacar();
         }
-        if((vC++)%v == 0 && !isAtacando()) //Si no está atacando cambia de estado.
+        if((vC++)%v == 0 && !isAtacando()) //Si no está atacando cambia de estado. (Animación)
             setEstado((getEstado()+1)%3);
         super.draw(scrn);
     }

@@ -41,8 +41,11 @@ public abstract class Sprite {
         setPaleta(new Paleta(entrada.next()));
         entrada.close();
     }
+    private Image get(int n){
+        return imgs[n];
+    }
     private Image get(){
-        return imgs[estado];
+        return get(getEstado());
     }
     public Color getPixelColor(int x, int y){
         return getPaleta().color(get().getPixel(x, y));
@@ -77,8 +80,14 @@ public abstract class Sprite {
             }
         }
     }
+    public int getAlto(int n){
+        return get(n).getAlto();
+    }
     public int getAlto(){
         return get().getAlto();
+    }
+    public int getAncho(int n){
+        return get(n).getAncho();
     }
     public int getAncho(){
         return get().getAncho();
@@ -111,11 +120,11 @@ public abstract class Sprite {
         mx = 0;
         my = 0;
     }
-    public int getEstadoLength(){
+    public int getLength(){
         return imgs.length;
     }
     public void setEstado(int n){
-        estado = n%imgs.length;
+        estado = n%getLength();
     }
     public int getEstado(){
         return estado;

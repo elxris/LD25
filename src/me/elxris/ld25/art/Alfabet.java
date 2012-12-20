@@ -7,7 +7,7 @@ import me.elxris.ld25.motor.Screen;
 public class Alfabet extends Sprite{
 
     public Alfabet() {
-        super("/res/alfabet");
+        super("/res/art/alfabet.s");
     }
     
     public void draw(String str, int x, int y, Screen scrn, Color color){

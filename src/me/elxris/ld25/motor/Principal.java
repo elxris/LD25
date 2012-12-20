@@ -5,7 +5,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-
 import javax.swing.JApplet;
 
 public class Principal extends JApplet implements Runnable, KeyListener, MouseMotionListener, MouseListener{
@@ -51,8 +50,8 @@ public class Principal extends JApplet implements Runnable, KeyListener, MouseMo
         try {
             while (playing){
                 Thread.sleep(TIME);
-                if(!isEnabled()){
-                    
+                if(!hasFocus()){
+                    game.paintScreen(0);
                 }else{
                     pintar();
                 }
@@ -118,6 +117,9 @@ public class Principal extends JApplet implements Runnable, KeyListener, MouseMo
         if(!pulsado){
             game.key(e.getKeyCode());
             pulsado = true;
+        }
+        if(e.getKeyChar() == 'r'){
+            game.reset();
         }
     }
 

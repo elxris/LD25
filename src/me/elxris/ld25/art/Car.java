@@ -15,9 +15,13 @@ public class Car extends Sprite {
         cars++;
         smash = false;
         vl = v;
-        Random rndm = new Random();
-        setColor(3, 3+rndm.nextInt(4));
         setVisible();
+        setX(-getAncho());
+    }
+    public Car(String src, int v, int[] e){ //Para los que requieran colores al azar. e son los colores que pueden tomar.
+        this(src, v);
+        Random rndm = new Random();
+        setColor(e[0], e[rndm.nextInt(e.length)]);
     }
     public void draw(Screen scrn) {
         if((count++)%vl == 0){
@@ -30,7 +34,10 @@ public class Car extends Sprite {
             setX(-getAncho());
         }
     }
-    public boolean isForSmashing(Screen scrn){
+    public boolean isForSmashing(Screen scrn){ // Dice si está en una posición en la que puedan aplastarlo.
+        if(isSmashed()){
+            return false;
+        }
         int pos = (scrn.getAncho()-getX())-15;
         if((pos < getAncho())&&(pos > -getAncho())){
             return true;

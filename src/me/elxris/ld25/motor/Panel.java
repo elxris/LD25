@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 public class Panel extends JPanel {
     public Panel() {
-        this.setDoubleBuffered(true);
+        this.setDoubleBuffered(false);
         this.setBackground(Color.BLACK);
     }
 }

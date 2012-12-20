@@ -4,24 +4,22 @@ public class Dinosaurio extends Yo{
     
 
     public Dinosaurio(int x, int y) {
-        super(x, y, "/res/sprite");
+        super(x, y, "/res/art/dino.s");
     }
     
     @Override
     public void atacar() {
-        if(isAtacando()){
-            addAtacar(1);
+        if(isAtacando()){ //Si está atacando.
+            addAtacar(1); //Añade estado de ataque.
             if(getAtacar() <= 10){
-                moveY(1);
+                moveY(1); //Salta
             }else{
-                if(getAtacar() > 18){
+                if(getAtacar() > 18){ //Deja de atacar
                     setAtacar(0);
                     setEstado(0);
                 }
                 moveY(-1);
             }
-        }else{
-            addAtacar(1);
         }
     }
 

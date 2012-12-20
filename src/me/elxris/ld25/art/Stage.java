@@ -8,16 +8,17 @@ import java.util.Random;
 import me.elxris.ld25.motor.Game;
 
 public class Stage {
-    private List<Sprite> bcks = new ArrayList<Sprite>(); //Sprites de fondo
+    private List<Background> bcks = new ArrayList<Background>(); //Sprites de fondo
     private List<Car> cars = new ArrayList<Car>();
     private List<Car> tCars = new ArrayList<Car>();
     private int maxCar = 5;
     private int cuentaCar; //Tiempo que tiene para sacar otro auto.
     private String srcCar;
     private Color cback = Color.BLACK; //Color de Fondo
+    private int[] random; //Colores random;
     
     public Stage(String src[]) {
-        bcks.add(new Background(src[0], 3, true));//Nuves
+        bcks.add(new Background(src[0], 3));//Nuves
         bcks.add(new Background(src[1], 2));//Fondo
         bcks.add(new Background(src[2]));// Suelo
         setSrcCar(src[3]);
@@ -26,6 +27,7 @@ public class Stage {
         for(Sprite s: bcks){
             s.draw(g.getScrn());
         }
+        maxCar(g.getScore());
         addCar();
         for(Car s: cars){
             if(g.getYo().isSmashing()){
@@ -54,8 +56,12 @@ public class Stage {
         addCuentaCar(-1);
         if(getCuentaCar() <= 0 && Car.getCountCars() < getMaxCar()){ 
             Random rndm = new Random();
-            setCuentaCar(10+rndm.nextInt(30));
-            cars.add(new Car(getSrcCar(), 2));
+            setCuentaCar(15+rndm.nextInt(30));
+            if(getRandom() == null){
+                cars.add(new Car(getSrcCar(), 2));
+            }else{
+                cars.add(new Car(getSrcCar(), 2, getRandom()));
+            }
         }
     }
     public void cleanCars(){
@@ -65,12 +71,9 @@ public class Stage {
         tCars.clear();
     }
     public void destroyCars(){
-        /*for(Car s: cars){
-            s.smash();
-            //s.setInvisible();
-            //tCars.add(s);
+        for(Background s: bcks){
+            s.reset(); //Hace que genere un nuevo fondo.
         }
-        //cleanCars();*/
         Car.resetCountCars();
         cars.clear();
     }
@@ -100,5 +103,14 @@ public class Stage {
     }
     public void setCback(Color cback) {
         this.cback = cback;
+    }
+    public void maxCar(int score){
+        setMaxCar(5 + (int)score/50);
+    }
+    public void setRandom(int[] random) {
+        this.random = random;
+    }
+    public int[] getRandom() {
+        return random;
     }
 }

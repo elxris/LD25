@@ -3,7 +3,7 @@ package me.elxris.ld25.art.yo;
 public class YoRobot extends Yo{
     
     public YoRobot(int x, int y) {
-        super(x-3, y, "/res/robot");
+        super(x-3, y, "/res/art/robot.s");
     }
 
     @Override
@@ -19,8 +19,6 @@ public class YoRobot extends Yo{
                 }
                 //moveY(-1);
             }
-        }else{
-            addAtacar(1);
         }
     }
 
